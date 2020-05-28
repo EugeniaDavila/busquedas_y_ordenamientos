@@ -8,6 +8,7 @@ using namespace std;
 void crearVector(int n,int *vector);
 void imprimirVector(int n,int *vector);
 void ordenarBurbuja(int n,int *vector);
+void ordenaBurbujaSenal(int n,int *vector);
 
 int main(int argc, char *argv[]) {
 	int *vec; // vector a ordenar
@@ -17,13 +18,14 @@ int main(int argc, char *argv[]) {
 	while(true){
 		system("cls");
 		cout<<"\n\tMETODOS DE ORDENAMIENTO Y BUSQUEDA"<<endl<<endl;
-		cout<<"\tCrear vector aleatorio.........[1]"<<endl;
-		cout<<"\tMostrar vector.................[2]"<<endl;
-		cout<<"\tORDENA BURBUJA.................[3]"<<endl;
-		cout<<"\tORDENA SELECCION DIRECTA.......[6]"<<endl;
-		cout<<"\tBUSQUEDA BINARIA...............[4]"<<endl;
-		cout<<"\tBUSQUEDA SECUENCIAL............[5]"<<endl;
-		cout<<"\tSALIR..........................[7]"<<endl;
+		cout<<"\tCrear vector aleatorio............[1]"<<endl;
+		cout<<"\tMostrar vector....................[2]"<<endl;
+		cout<<"\tOrdenar (burbuja).................[3]"<<endl;
+		cout<<"\tOrdenar (burbuja con señal).......[4]"<<endl;
+		cout<<"\tORDENA SELECCION DIRECTA..........[6]"<<endl;
+		cout<<"\tBUSQUEDA BINARIA..................[4]"<<endl;
+		cout<<"\tBUSQUEDA SECUENCIAL...............[5]"<<endl;
+		cout<<"\tSALIR.............................[7]"<<endl;
 		cout<<"\n\tDigita tu eleccion: ";
 		cin>>op;
 		switch(op){
@@ -39,6 +41,9 @@ int main(int argc, char *argv[]) {
 			case 3:
 				ordenarBurbuja(n,vec);
 				break;
+			case 4:
+				ordenaBurbujaSenal(n,vec);
+			break;
 			case 6:
 				for(int i=0;i<n;i++){
 					men=vec[i];
@@ -53,7 +58,7 @@ int main(int argc, char *argv[]) {
 					vec[i]=men;
 				}
 				break;
-			case 4:
+			/*case 4:
 				inf=0;
     			sup=9;
     			ban=0;
@@ -77,7 +82,7 @@ int main(int argc, char *argv[]) {
 			            cout<<"El valor no se encontro";
     			}
     			cout<<"Despues de "<<ban<<" intentos, el valor se encontro en ["<<pos<<"]="<<vec[pos]<<endl;
-			break;
+			break;*/
 			case 5:
 				ban=-1;
 				cout<<"Introduce el valor a buscar: ";
@@ -103,6 +108,25 @@ int main(int argc, char *argv[]) {
 }
 
 // Implementación de funciones
+void ordenaBurbujaSenal(int n,int *vector){
+	int tmp; // valor temporal para el intercambio de números
+	int i,j; // contadores para recorrer el vector
+	bool band; // bandera que indica si se realizan intercambios en el vector
+	cout<<"\n\tOrdenando vector...";
+	while(i<=n && band==false){
+		band = true;
+		for(j=0;j<n-1;j++){
+			if(vector[j]>vector[j+1]){
+				tmp = vector[j];
+				vector[j] = vector[j+1];
+				vector[j+1] = tmp;
+				band = false;
+			}
+		}
+	}
+	cout<<"\n\tMetodo de burbuja con señal terminado..."<<endl;
+}
+
 void ordenarBurbuja(int n,int *vector){ // ordena de menor a mayor
 	int tmp; // guarda un valor temporal en el intercambio de números
 	cout<<"\n\tOrdenando vector...";
