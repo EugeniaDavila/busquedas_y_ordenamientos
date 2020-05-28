@@ -7,6 +7,7 @@ using namespace std;
 // prototipos de funciones
 void crearVector(int n,int *vector);
 void imprimirVector(int n,int *vector);
+void ordenarBurbuja(int n,int *vector);
 
 int main(int argc, char *argv[]) {
 	int *vec; // vector a ordenar
@@ -18,8 +19,8 @@ int main(int argc, char *argv[]) {
 		cout<<"\n\tMETODOS DE ORDENAMIENTO Y BUSQUEDA"<<endl<<endl;
 		cout<<"\tCrear vector aleatorio.........[1]"<<endl;
 		cout<<"\tMostrar vector.................[2]"<<endl;
-		cout<<"\tORDENA BURBUJA.................[6]"<<endl;
-		cout<<"\tORDENA SELECCION DIRECTA.......[3]"<<endl;
+		cout<<"\tORDENA BURBUJA.................[3]"<<endl;
+		cout<<"\tORDENA SELECCION DIRECTA.......[6]"<<endl;
 		cout<<"\tBUSQUEDA BINARIA...............[4]"<<endl;
 		cout<<"\tBUSQUEDA SECUENCIAL............[5]"<<endl;
 		cout<<"\tSALIR..........................[7]"<<endl;
@@ -35,18 +36,10 @@ int main(int argc, char *argv[]) {
 			case 2:
 				imprimirVector(n,vec);
 			break;
-			case 6:
-				for(int i=0;i<n;i++){
-					for(int j=i+1;j<n;j++){
-						if(vec[j]<vec[i]){ //Mayor a menor
-							tmp=vec[j];
-			             	vec[j]=vec[i];
-			            }
-						vec[i]=tmp;
-			        }
-				}
-				break;
 			case 3:
+				ordenarBurbuja(n,vec);
+				break;
+			case 6:
 				for(int i=0;i<n;i++){
 					men=vec[i];
 					tmp=i;
@@ -110,9 +103,23 @@ int main(int argc, char *argv[]) {
 }
 
 // Implementación de funciones
+void ordenarBurbuja(int n,int *vector){ // ordena de menor a mayor
+	int tmp; // guarda un valor temporal en el intercambio de números
+	cout<<"\n\tOrdenando vector...";
+	for(int i=0;i<n;i++){
+		for(int j=i+1;j<n;j++){
+			if(vector[j]<vector[i]){
+				tmp=vector[j];
+            	vector[j]=vector[i];
+            }
+			vector[i]=tmp;
+        }
+	}
+	cout<<"\n\tMetodo de burbuja terminado..."<<endl;
+}
 
 void imprimirVector(int n,int *vector){
-	cout<<"\n\t"<<;
+	cout<<"\n\t";
 	for(int i=0;i<n;i++){
 		cout<<"["<<vector[i]<<"] ";
 	}
