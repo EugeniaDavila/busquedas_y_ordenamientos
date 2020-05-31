@@ -9,6 +9,7 @@ void crearVector(int n,int *vector);
 void imprimirVector(int n,int *vector);
 void ordenarBurbuja(int n,int *vector);
 void ordenaBurbujaSenal(int n,int *vector);
+void shakersort(int n,int *vector);
 
 int main(int argc, char *argv[]) {
 	int *vec; // vector a ordenar
@@ -20,11 +21,12 @@ int main(int argc, char *argv[]) {
 		cout<<"\n\tMETODOS DE ORDENAMIENTO Y BUSQUEDA"<<endl<<endl;
 		cout<<"\tCrear vector aleatorio............[1]"<<endl;
 		cout<<"\tMostrar vector....................[2]"<<endl;
-		cout<<"\tOrdenar (burbuja).................[3]"<<endl;
-		cout<<"\tOrdenar (burbuja con señal).......[4]"<<endl;
-		cout<<"\tORDENA SELECCION DIRECTA..........[6]"<<endl;
-		cout<<"\tBUSQUEDA BINARIA..................[4]"<<endl;
-		cout<<"\tBUSQUEDA SECUENCIAL...............[5]"<<endl;
+		cout<<"\n\tOrdenarmientos"<<endl;
+		cout<<"\tBurbuja...........................[3]"<<endl;
+		cout<<"\tBurbuja con señal.................[4]"<<endl;
+		cout<<"\tMetodo de la sacudida.............[]"<<endl;
+		cout<<"\tBUSQUEDA BINARIA..................[]"<<endl;
+		cout<<"\tBUSQUEDA SECUENCIAL...............[]"<<endl;
 		cout<<"\tSALIR.............................[7]"<<endl;
 		cout<<"\n\tDigita tu eleccion: ";
 		cin>>op;
@@ -108,6 +110,36 @@ int main(int argc, char *argv[]) {
 }
 
 // Implementación de funciones
+void shakersort(int n,int *vector){
+	bool cambio = false; // indica si se ha producido un intercambio entre posiciones
+	int izq = 1, der = n-1; // ultima posición de intercambio izquiero y derecho, respectivamente
+	int posicion; // variable de apoyo que indica en que posición termina el ciclo
+	int aux; // guarda de forma temporal el valor de una posición miestras se realiza el intercambio
+	while(izq<=der && cambio==false){
+		// Ciclo descendente (derecha a izquierda)
+		for(int i=izq;i<=der;i++){
+			if(vector[i-1]>vector[i]){
+				aux = vector[i-1];
+				vector[i-1] = vector[i];
+				vector[i] = aux;
+				posicion = i;
+				cambio = true;
+			}
+		}
+		izq = posicion+1;
+		for(int i=izq;i<=der;i++){
+			if(vector[i-1]>vector[i]){
+				aux = vector[i-1];
+				vector[i-1] = vector[i];
+				vector[i] = aux;
+				posicion = i;
+				cambio =true;
+			}
+		}
+		der = posicion-1;
+	}
+}
+
 void ordenaBurbujaSenal(int n,int *vector){
 	int tmp; // valor temporal para el intercambio de números
 	int i,j; // contadores para recorrer el vector
