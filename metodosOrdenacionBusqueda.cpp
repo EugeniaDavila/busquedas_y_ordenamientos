@@ -10,6 +10,7 @@ void imprimirVector(int n,int *vector);
 void ordenarBurbuja(int n,int *vector);
 void ordenaBurbujaSenal(int n,int *vector);
 void shakersort(int n,int *vector);
+void baraja(int n,int *vector);
 
 int main(int argc, char *argv[]) {
 	int *vec; // vector a ordenar
@@ -19,15 +20,16 @@ int main(int argc, char *argv[]) {
 	while(true){
 		system("cls");
 		cout<<"\n\tMETODOS DE ORDENAMIENTO Y BUSQUEDA"<<endl<<endl;
-		cout<<"\tCrear vector aleatorio............[1]"<<endl;
-		cout<<"\tMostrar vector....................[2]"<<endl;
+		cout<<"\tCrear vector aleatorio......................[1]"<<endl;
+		cout<<"\tMostrar vector..............................[2]"<<endl;
 		cout<<"\n\tOrdenarmientos"<<endl;
-		cout<<"\tBurbuja...........................[3]"<<endl;
-		cout<<"\tBurbuja con señal.................[4]"<<endl;
-		cout<<"\tMetodo de la sacudida.............[5]"<<endl;
-		cout<<"\tBUSQUEDA BINARIA..................[]"<<endl;
-		cout<<"\tBUSQUEDA SECUENCIAL...............[]"<<endl;
-		cout<<"\tSALIR.............................[7]"<<endl;
+		cout<<"\tBurbuja.....................................[3]"<<endl;
+		cout<<"\tBurbuja con señal...........................[4]"<<endl;
+		cout<<"\tMetodo de la sacudida.......................[5]"<<endl;
+		cout<<"\tMetodo de insercion directa (baraja)........[6]"<<endl;
+		cout<<"\tBUSQUEDA BINARIA............................[]"<<endl;
+		cout<<"\tBUSQUEDA SECUENCIAL.........................[]"<<endl;
+		cout<<"\tSALIR.......................................[0]"<<endl;
 		cout<<"\n\tDigita tu eleccion: ";
 		cin>>op;
 		switch(op){
@@ -46,7 +48,7 @@ int main(int argc, char *argv[]) {
 			case 4:
 				ordenaBurbujaSenal(n,vec);
 			break;
-			case 6:
+			case 6:/*
 				for(int i=0;i<n;i++){
 					men=vec[i];
 					tmp=i;
@@ -58,7 +60,8 @@ int main(int argc, char *argv[]) {
 					}
 					vec[tmp]=vec[i];
 					vec[i]=men;
-				}
+				}*/
+				baraja(n,vec);
 				break;
 			/*case 4:
 				inf=0;
@@ -102,7 +105,7 @@ int main(int argc, char *argv[]) {
 					*/
 			break;
 			
-			case 7:return 0;
+			case 0:return 0;
 			break;
 		}
 		cout<<"\n\t";
@@ -112,6 +115,21 @@ int main(int argc, char *argv[]) {
 }
 
 // Implementación de funciones
+void baraja(int n,int *vector){
+	int temp; // guarda de forma temporal un valor para hacer el intercambio
+	cout<<"\n\tOrdenando vector..."<<endl;
+	for(int i=1;i<n;i++){
+		cout<<i<<endl;
+		for(int j=i;j>=1;j--){
+			if(vector[j]<vector[j-1]){
+				temp = vector[j-1];
+				vector[j-1] = vector[j];
+				vector[j] = temp;
+			}
+		}
+	}
+}
+
 void shakersort(int n,int *vector){
 	int izq = 0, der = n-1; // ultima posición de intercambio izquiero y derecho, respectivamente
 	int posicion; // variable de apoyo que indica cuál es la última posición en la que se hace un cambio
