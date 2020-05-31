@@ -113,49 +113,29 @@ int main(int argc, char *argv[]) {
 
 // Implementación de funciones
 void shakersort(int n,int *vector){
-	bool cambio = true; // indica si se ha producido un intercambio entre posiciones
 	int izq = 0, der = n-1; // ultima posición de intercambio izquiero y derecho, respectivamente
-	int posicion; // variable de apoyo que indica en que posición termina el ciclo
+	int posicion; // variable de apoyo que indica cuál es la última posición en la que se hace un cambio
 	int aux; // guarda de forma temporal el valor de una posición miestras se realiza el intercambio
 	cout<<"\n\tOrdenando vector..."<<endl;
-	while(der>=izq || cambio==true){
-		cambio = false;
-		cout<<"izq: "<<izq<<endl;
-		cout<<"der: "<<der<<endl;
-		cout<<"cambio: "<<cambio<<endl;
-		system("pause");
+	while(der>izq){
 		for(int i=der;i>izq;i--){ // Ciclo descendente (derecha a izquierda)
-			for(int k=0;k<n;k++){
-					cout<<" ["<<vector[k]<<" ]";
-				}
-				cout<<endl;
 			if(vector[i-1]>vector[i]){
 				aux = vector[i-1];
 				vector[i-1] = vector[i];
 				vector[i] = aux;
 				posicion = i;
-				cambio = true;
-			}else{
-				cambio = false;
 			}
 		}
-		izq = posicion+1;
-		cout<<"Izq:"<<izq<<endl;
+		izq = posicion;
 		for(int i=izq;i<der;i++){
-			if(vector[i+1]<vector[i]){
+			if(vector[i]>vector[i+1]){
 				aux = vector[i+1];
 				vector[i+1] = vector[i];
 				vector[i] = aux;
 				posicion = i;
-				cambio = true;
-			}else{
-				cambio = false;
 			}
-			for(int k=0;k<n;k++){
-			cout<<" ["<<vector[k]<<" ]";
-		}cout<<endl;
 		}
-		der = posicion-1;
+		der = posicion;
 	}
 	cout<<"\n\tMetodo de la sacudida terminado..."<<endl;
 }
