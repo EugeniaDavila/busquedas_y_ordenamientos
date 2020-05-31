@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 		cout<<"\n\tOrdenarmientos"<<endl;
 		cout<<"\tBurbuja...........................[3]"<<endl;
 		cout<<"\tBurbuja con señal.................[4]"<<endl;
-		cout<<"\tMetodo de la sacudida.............[]"<<endl;
+		cout<<"\tMetodo de la sacudida.............[5]"<<endl;
 		cout<<"\tBUSQUEDA BINARIA..................[]"<<endl;
 		cout<<"\tBUSQUEDA SECUENCIAL...............[]"<<endl;
 		cout<<"\tSALIR.............................[7]"<<endl;
@@ -86,7 +86,8 @@ int main(int argc, char *argv[]) {
     			cout<<"Despues de "<<ban<<" intentos, el valor se encontro en ["<<pos<<"]="<<vec[pos]<<endl;
 			break;*/
 			case 5:
-				ban=-1;
+				shakersort(n,vec);
+				/*ban=-1;
 				cout<<"Introduce el valor a buscar: ";
 				cin>>x;
 				for(int i=0;i<n;i++)
@@ -98,6 +99,7 @@ int main(int argc, char *argv[]) {
 					cout<<"El valor esta en la posicion ["<<ban<<"]= "<<vec[ban]<<endl;
 				else
 					cout<<"El valor no se encontro."<<endl;
+					*/
 			break;
 			
 			case 7:return 0;
@@ -111,33 +113,51 @@ int main(int argc, char *argv[]) {
 
 // Implementación de funciones
 void shakersort(int n,int *vector){
-	bool cambio = false; // indica si se ha producido un intercambio entre posiciones
-	int izq = 1, der = n-1; // ultima posición de intercambio izquiero y derecho, respectivamente
+	bool cambio = true; // indica si se ha producido un intercambio entre posiciones
+	int izq = 0, der = n-1; // ultima posición de intercambio izquiero y derecho, respectivamente
 	int posicion; // variable de apoyo que indica en que posición termina el ciclo
 	int aux; // guarda de forma temporal el valor de una posición miestras se realiza el intercambio
-	while(izq<=der && cambio==false){
-		// Ciclo descendente (derecha a izquierda)
-		for(int i=izq;i<=der;i++){
+	cout<<"\n\tOrdenando vector..."<<endl;
+	while(der>=izq || cambio==true){
+		cambio = false;
+		cout<<"izq: "<<izq<<endl;
+		cout<<"der: "<<der<<endl;
+		cout<<"cambio: "<<cambio<<endl;
+		system("pause");
+		for(int i=der;i>izq;i--){ // Ciclo descendente (derecha a izquierda)
+			for(int k=0;k<n;k++){
+					cout<<" ["<<vector[k]<<" ]";
+				}
+				cout<<endl;
 			if(vector[i-1]>vector[i]){
 				aux = vector[i-1];
 				vector[i-1] = vector[i];
 				vector[i] = aux;
 				posicion = i;
 				cambio = true;
+			}else{
+				cambio = false;
 			}
 		}
 		izq = posicion+1;
-		for(int i=izq;i<=der;i++){
-			if(vector[i-1]>vector[i]){
-				aux = vector[i-1];
-				vector[i-1] = vector[i];
+		cout<<"Izq:"<<izq<<endl;
+		for(int i=izq;i<der;i++){
+			if(vector[i+1]<vector[i]){
+				aux = vector[i+1];
+				vector[i+1] = vector[i];
 				vector[i] = aux;
 				posicion = i;
-				cambio =true;
+				cambio = true;
+			}else{
+				cambio = false;
 			}
+			for(int k=0;k<n;k++){
+			cout<<" ["<<vector[k]<<" ]";
+		}cout<<endl;
 		}
 		der = posicion-1;
 	}
+	cout<<"\n\tMetodo de la sacudida terminado..."<<endl;
 }
 
 void ordenaBurbujaSenal(int n,int *vector){
