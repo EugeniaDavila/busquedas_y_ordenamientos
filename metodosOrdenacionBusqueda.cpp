@@ -7,18 +7,13 @@ using namespace std;
 // prototipos de funciones
 
 void crearVector(int n,int *vector);
-/* Crear el vector según el tamaño especificado*/
 void imprimirVector(int n,int *vector);
-/* Mostrar el vector en pantalla*/
 void ordenarBurbuja(int n,int *vector);
 void ordenaBurbujaSenal(int n,int *vector);
 void shakersort(int n,int *vector);
 void baraja(int n,int *vector);
 void seleccionDirecta(int n,int *vector);
-/* Busca el primer elemento del arreglo y lo coloca en la primera posición.
-   Luego busca el segundo elemento más pequeño y lo coloca en la segunda posición.
-   El proceso continúa hasta que todos los elementos del arreglo hayan sido ordenados
-*/
+void insercionBinaria(int n,int *vector);
 
 // Función principal
 
@@ -38,6 +33,7 @@ int main(int argc, char *argv[]) {
 		cout<<"\tMetodo de la sacudida.......................[5]"<<endl;
 		cout<<"\tMetodo de insercion directa (baraja)........[6]"<<endl;
 		cout<<"\tSeleccion directa...........................[7]"<<endl;
+		cout<<"\tInsercion binaria...........................[8]"<<endl;
 		cout<<"\tBUSQUEDA BINARIA............................[]"<<endl;
 		cout<<"\tBUSQUEDA SECUENCIAL.........................[]"<<endl;
 		cout<<"\tSALIR.......................................[0]"<<endl;
@@ -118,16 +114,45 @@ int main(int argc, char *argv[]) {
 			case 7:
 				seleccionDirecta(n,vec);
 			break;
-			case 0:return 0;
+			case 8:
+				insercionBinaria(n,vec);
+			break;
+			case 0:
+				return 0;
 			break;
 		}
 		cout<<"\n\t";
 		system("PAUSE");
 	}
-	return 0;
 }
 
 // Implementación de funciones
+
+/* Búsqueda binaria o de intercambio medio, no secuencial.
+   Hace la mitad de las comparaciones que se harían con la inserción directa.
+   Compara cada uno de los elementos con los elementos de su izquierda, a partir del punto medio. */
+void insercionBinaria(int n,int *vector){
+	int medio; // punto medio en donde se empiezan a hacer los intercambios
+	int temp;
+	if(vector[0]>vector[1]){
+		temp = vector[0];
+		vector[0] = vector[1];
+		vector[1] = temp;	
+	}
+	for(int i=2;i<n;i++){
+		medio = i/2; // definir el punto medio
+		if(vector[i]<vector[medio-1]){ // el recorrido se debe hacer desde el principio
+			medio = 0;
+		}
+		for(int j=medio;j<i;j++){
+			if(vector[j]>vector[i]){
+				temp = vector[i];
+				vector[i] = vector[j];
+				vector[j] = temp;	
+			}
+		}
+	}
+}
 
 void seleccionDirecta(int n,int *vector){
 	int menor; // valor más pequeño del arreglo
@@ -229,6 +254,7 @@ void ordenarBurbuja(int n,int *vector){ // ordena de menor a mayor
 	cout<<"\n\tMetodo de burbuja terminado..."<<endl;
 }
 
+/* Mostrar el vector en pantalla*/
 void imprimirVector(int n,int *vector){
 	cout<<"\n\t";
 	for(int i=0;i<n;i++){
@@ -237,6 +263,7 @@ void imprimirVector(int n,int *vector){
 	cout<<endl;
 }
 
+/* Crear el vector según el tamaño especificado*/
 void crearVector(int n,int *vector){
 	srand(time(NULL));
 	for(int i=0;i<n;i++){
