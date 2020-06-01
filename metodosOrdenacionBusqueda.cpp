@@ -5,12 +5,22 @@
 using namespace std;
 
 // prototipos de funciones
+
 void crearVector(int n,int *vector);
+/* Crear el vector según el tamaño especificado*/
 void imprimirVector(int n,int *vector);
+/* Mostrar el vector en pantalla*/
 void ordenarBurbuja(int n,int *vector);
 void ordenaBurbujaSenal(int n,int *vector);
 void shakersort(int n,int *vector);
 void baraja(int n,int *vector);
+void seleccionDirecta(int n,int *vector);
+/* Busca el primer elemento del arreglo y lo coloca en la primera posición.
+   Luego busca el segundo elemento más pequeño y lo coloca en la segunda posición.
+   El proceso continúa hasta que todos los elementos del arreglo hayan sido ordenados
+*/
+
+// Función principal
 
 int main(int argc, char *argv[]) {
 	int *vec; // vector a ordenar
@@ -27,6 +37,7 @@ int main(int argc, char *argv[]) {
 		cout<<"\tBurbuja con señal...........................[4]"<<endl;
 		cout<<"\tMetodo de la sacudida.......................[5]"<<endl;
 		cout<<"\tMetodo de insercion directa (baraja)........[6]"<<endl;
+		cout<<"\tSeleccion directa...........................[7]"<<endl;
 		cout<<"\tBUSQUEDA BINARIA............................[]"<<endl;
 		cout<<"\tBUSQUEDA SECUENCIAL.........................[]"<<endl;
 		cout<<"\tSALIR.......................................[0]"<<endl;
@@ -104,7 +115,9 @@ int main(int argc, char *argv[]) {
 					cout<<"El valor no se encontro."<<endl;
 					*/
 			break;
-			
+			case 7:
+				seleccionDirecta(n,vec);
+			break;
 			case 0:return 0;
 			break;
 		}
@@ -115,11 +128,34 @@ int main(int argc, char *argv[]) {
 }
 
 // Implementación de funciones
+
+void seleccionDirecta(int n,int *vector){
+	int menor; // valor más pequeño del arreglo
+	int posicion; // posicion de menor
+	int temp;
+	cout<<"\n\tOrdenando vector..."<<endl;
+	for(int i=0;i<n;i++){ 
+		menor = vector[i];
+		posicion = i;
+		for(int j=i+1;j<n;j++){ // buscar el elemento menor
+			if(menor>vector[j]){
+				menor = vector[j];
+				posicion = j;
+			}
+		}
+		if(posicion != i){
+			temp = vector[i];
+			vector[i] = vector[posicion];
+			vector[posicion] = temp;
+		}
+	}
+	cout<<"\n\tMetodo de seleccion directa terminado..."<<endl;
+}
+
 void baraja(int n,int *vector){
 	int temp; // guarda de forma temporal un valor para hacer el intercambio
 	cout<<"\n\tOrdenando vector..."<<endl;
 	for(int i=1;i<n;i++){
-		cout<<i<<endl;
 		for(int j=i;j>=1;j--){
 			if(vector[j]<vector[j-1]){
 				temp = vector[j-1];
@@ -128,6 +164,7 @@ void baraja(int n,int *vector){
 			}
 		}
 	}
+	cout<<"\n\tMetodo de insercion directa terminado..."<<endl;
 }
 
 void shakersort(int n,int *vector){
