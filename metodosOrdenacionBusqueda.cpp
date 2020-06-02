@@ -14,6 +14,7 @@ void shakersort(int n,int *vector);
 void baraja(int n,int *vector);
 void seleccionDirecta(int n,int *vector);
 void insercionBinaria(int n,int *vector);
+void shell(int n,int *vector);
 
 // Función principal
 
@@ -34,7 +35,7 @@ int main(int argc, char *argv[]) {
 		cout<<"\tMetodo de insercion directa (baraja)........[6]"<<endl;
 		cout<<"\tSeleccion directa...........................[7]"<<endl;
 		cout<<"\tInsercion binaria...........................[8]"<<endl;
-		cout<<"\tBUSQUEDA BINARIA............................[]"<<endl;
+		cout<<"\tMetodo de Shell.............................[9]"<<endl;
 		cout<<"\tBUSQUEDA SECUENCIAL.........................[]"<<endl;
 		cout<<"\tSALIR.......................................[0]"<<endl;
 		cout<<"\n\tDigita tu eleccion: ";
@@ -117,6 +118,9 @@ int main(int argc, char *argv[]) {
 			case 8:
 				insercionBinaria(n,vec);
 			break;
+			case 9:
+				shell(n,vec);
+			break;
 			case 0:
 				return 0;
 			break;
@@ -127,6 +131,30 @@ int main(int argc, char *argv[]) {
 }
 
 // Implementación de funciones
+
+/*	Se conoce tambien como inserción con elementos decrecientes.
+	Propone que las comparaciones entre elementos se efectúen con saltos de mayor tamaño,
+	pero con incrementos decrecientes; así, los elementos quedarán ordenados en el arreglo 
+	más rápidamente. */
+void shell(int n,int *vector){
+	int k; // tamaño del salto
+	int aux; // variable para hacer el intercambio entre posiciones
+	k = n/2; // calcular el tamaño del salto inicial
+	while(k>=1){
+		cout<<"k: "<<k<<endl;
+		for(int i=0;(i+k)<n;i++){
+			cout<<"\t"<<i<<"--"<<i+k<<endl;
+			cout<<"\t"<<vector[i]<<"--"<<vector[i+k]<<endl;
+			if(vector[i]>vector[i+k]){
+				aux = vector[i];
+				vector[i] = vector[i+k];
+				vector[i+k] = aux;
+			}
+			imprimirVector(n,vector);
+		}
+		k = k/2;
+	}
+}
 
 /* Búsqueda binaria o de intercambio medio, no secuencial.
    Hace la mitad de las comparaciones que se harían con la inserción directa.
