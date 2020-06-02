@@ -154,6 +154,9 @@ void insercionBinaria(int n,int *vector){
 	}
 }
 
+/*	Busca el menor elemento del arreglo y lo coloca en la primer posición. Luego
+	busca el segundo elemento más pequeño y lo coloca en la segunda posición. El
+	proceso continua hasta que todos los elementos hayan sido ordenados*/
 void seleccionDirecta(int n,int *vector){
 	int menor; // valor más pequeño del arreglo
 	int posicion; // posicion de menor
@@ -177,6 +180,10 @@ void seleccionDirecta(int n,int *vector){
 	cout<<"\n\tMetodo de seleccion directa terminado..."<<endl;
 }
 
+/*	Consiste en insertar un elemento del arreglo en su parte izquierda que ya 
+	se encuentra ordenada. El proceso se repite desde el segundo hasta el n-ésimo
+	elemento
+*/
 void baraja(int n,int *vector){
 	int temp; // guarda de forma temporal un valor para hacer el intercambio
 	cout<<"\n\tOrdenando vector..."<<endl;
@@ -192,6 +199,14 @@ void baraja(int n,int *vector){
 	cout<<"\n\tMetodo de insercion directa terminado..."<<endl;
 }
 
+/*	Optimización del método de intercambio directo. Cada pasada tiene 2 etapas:
+	en la 1° (derecha a izquierda) se trasladan los elementos más pequeños hacia
+	la parte izquierda del arreglo almacenando la posición del último elemento
+	intercambiado. En la 2° etapa (izquierda a derecha) se trasladan los 
+	elementos más grandes hacia la parte derecha del arreglo, almacenando tambien
+	la posición del último elemento intercambiado. Las sucesivas pasadas trabajan
+	con los componentes del arreglo que se encuentran entre las posiciones almacenadas.
+*/
 void shakersort(int n,int *vector){
 	int izq = 0, der = n-1; // ultima posición de intercambio izquiero y derecho, respectivamente
 	int posicion; // variable de apoyo que indica cuál es la última posición en la que se hace un cambio
@@ -220,6 +235,11 @@ void shakersort(int n,int *vector){
 	cout<<"\n\tMetodo de la sacudida terminado..."<<endl;
 }
 
+/*	Es una modificación del método de intercambio directo (burbuja),
+	pero utiliza una marca o señal para indicar que no se ha producido ningún intercambio
+	en una pasada. Es decir, se comprueba si el arreglo está totalmente ordenado despues
+	de cada pasada, terminando su ejecución en caso afirmativo.
+*/
 void ordenaBurbujaSenal(int n,int *vector){
 	int tmp; // valor temporal para el intercambio de números
 	int i,j; // contadores para recorrer el vector
@@ -239,6 +259,9 @@ void ordenaBurbujaSenal(int n,int *vector){
 	cout<<"\n\tMetodo de burbuja con señal terminado..."<<endl;
 }
 
+/*	Compara pares de elementos adyacentes y los intercambia entre si
+	hasta que todos se encuentran ordenados
+*/
 void ordenarBurbuja(int n,int *vector){ // ordena de menor a mayor
 	int tmp; // guarda un valor temporal en el intercambio de números
 	cout<<"\n\tOrdenando vector...";
