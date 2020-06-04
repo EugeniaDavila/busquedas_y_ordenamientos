@@ -69,7 +69,9 @@ int main(int argc, char *argv[]) {
 					vec[tmp]=vec[i];
 					vec[i]=men;
 				}*/
+				cout<<"\n\tOrdenando vector..."<<endl;
 				baraja(n,vec);
+				cout<<"\n\tMetodo de insercion directa terminado..."<<endl;
 				break;
 			/*case 4:
 				inf=0;
@@ -119,7 +121,9 @@ int main(int argc, char *argv[]) {
 				insercionBinaria(n,vec);
 			break;
 			case 9:
+				cout<<"\n\tOrdenando vector..."<<endl;
 				shell(n,vec);
+				cout<<"\n\tMetodo de Shell terminado..."<<endl;
 			break;
 			case 0:
 				return 0;
@@ -140,20 +144,18 @@ void shell(int n,int *vector){
 	int k; // tamaño del salto
 	int aux; // variable para hacer el intercambio entre posiciones
 	k = n/2; // calcular el tamaño del salto inicial
-	while(k>=1){
-		cout<<"k: "<<k<<endl;
+	while(k>1){
 		for(int i=0;(i+k)<n;i++){
-			cout<<"\t"<<i<<"--"<<i+k<<endl;
-			cout<<"\t"<<vector[i]<<"--"<<vector[i+k]<<endl;
 			if(vector[i]>vector[i+k]){
 				aux = vector[i];
 				vector[i] = vector[i+k];
 				vector[i+k] = aux;
 			}
-			imprimirVector(n,vector);
 		}
 		k = k/2;
 	}
+	// En los saltos donde k=1, se utiliza un método de inserción directa
+	baraja(n,vector);
 }
 
 /* Búsqueda binaria o de intercambio medio, no secuencial.
@@ -214,7 +216,6 @@ void seleccionDirecta(int n,int *vector){
 */
 void baraja(int n,int *vector){
 	int temp; // guarda de forma temporal un valor para hacer el intercambio
-	cout<<"\n\tOrdenando vector..."<<endl;
 	for(int i=1;i<n;i++){
 		for(int j=i;j>=1;j--){
 			if(vector[j]<vector[j-1]){
@@ -224,7 +225,6 @@ void baraja(int n,int *vector){
 			}
 		}
 	}
-	cout<<"\n\tMetodo de insercion directa terminado..."<<endl;
 }
 
 /*	Optimización del método de intercambio directo. Cada pasada tiene 2 etapas:
