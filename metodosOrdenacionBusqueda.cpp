@@ -15,6 +15,7 @@ void baraja(int n,int *vector);
 void seleccionDirecta(int n,int *vector);
 void insercionBinaria(int n,int *vector);
 void shell(int n,int *vector);
+void quicksort(int *vector,int inicio,int final);
 
 // Función principal
 
@@ -26,16 +27,17 @@ int main(int argc, char *argv[]) {
 	while(true){
 		system("cls");
 		cout<<"\n\tMETODOS DE ORDENAMIENTO Y BUSQUEDA"<<endl<<endl;
-		cout<<"\tCrear vector aleatorio......................[1]"<<endl;
-		cout<<"\tMostrar vector..............................[2]"<<endl;
+		cout<<"\tCrear vector aleatorio......................[01]"<<endl;
+		cout<<"\tMostrar vector..............................[02]"<<endl;
 		cout<<"\n\tOrdenarmientos"<<endl;
-		cout<<"\tBurbuja.....................................[3]"<<endl;
-		cout<<"\tBurbuja con señal...........................[4]"<<endl;
-		cout<<"\tMetodo de la sacudida.......................[5]"<<endl;
-		cout<<"\tMetodo de insercion directa (baraja)........[6]"<<endl;
-		cout<<"\tSeleccion directa...........................[7]"<<endl;
-		cout<<"\tInsercion binaria...........................[8]"<<endl;
-		cout<<"\tMetodo de Shell.............................[9]"<<endl;
+		cout<<"\tBurbuja.....................................[03]"<<endl;
+		cout<<"\tBurbuja con señal...........................[04]"<<endl;
+		cout<<"\tMetodo de la sacudida.......................[05]"<<endl;
+		cout<<"\tMetodo de insercion directa (baraja)........[06]"<<endl;
+		cout<<"\tSeleccion directa...........................[07]"<<endl;
+		cout<<"\tInsercion binaria...........................[08]"<<endl;
+		cout<<"\tMetodo de Shell.............................[09]"<<endl;
+		cout<<"\tQuicksort...................................[10]"<<endl;
 		cout<<"\tBUSQUEDA SECUENCIAL.........................[]"<<endl;
 		cout<<"\tSALIR.......................................[0]"<<endl;
 		cout<<"\n\tDigita tu eleccion: ";
@@ -125,6 +127,11 @@ int main(int argc, char *argv[]) {
 				shell(n,vec);
 				cout<<"\n\tMetodo de Shell terminado..."<<endl;
 			break;
+			case 10:
+				cout<<"\n\tOrdenando vector..."<<endl;
+				quicksort(vec,0,n-1);
+				cout<<"\n\tMetodo de Quicksort terminado..."<<endl;
+			break;
 			case 0:
 				return 0;
 			break;
@@ -135,6 +142,48 @@ int main(int argc, char *argv[]) {
 }
 
 // Implementación de funciones
+
+/*	Es una mejora sustancial del método de intercambio directo.
+	Consiste en tomar un elemento x de una posición cualquiera del arreglo.
+	Se trata de ubicar a x en la posición correcta del arreglo, de tal forma 
+	que todos los elementos que se encuentren a su izquierda sean menores o iguales a x
+	y todos los que se encuentran a su derecha sean mayores o iguales a x.
+	Se repiten los pasos para los conjuntos de datos que se encuentran a la izquierda y
+	a la derecha del pivote (x). El proceso mientras los segmentos analizados tengan
+	más de un elemento. */
+void quicksort(int *vector,int inicio,int final){
+	int pivote; 
+	int izq; // indice que busca el primer elemento mayor que el pivote
+	int der; // indice que busca el primer elemento menor que el pivote
+	int temp;
+	if(inicio<final){		
+		pivote = vector[inicio];
+    	izq = inicio;
+    	der = final;
+ 	   // Mientras no se crucen los índices
+    	while (izq<der) {
+        	while(vector[der]>pivote){
+            	der--;
+        	}
+    	    while ((izq<der)&&(vector[izq]<=pivote)){
+            	izq++;
+        	}
+        	// Si todavía no se cruzan los indices seguimos intercambiando
+	        if (izq<der) {
+	            temp = vector[izq];
+	            vector[izq] =vector[der];
+	            vector[der] = temp;
+	        }
+    	}
+    	// Si los índices se cruzan, se pone el pivote en el lugar que le corresponde
+	    temp = vector[der];
+	    vector[der] = vector[inicio];
+	    vector[inicio] = temp;		
+		pivote = der; // La nueva posición del pivote
+        quicksort(vector,inicio,pivote-1); // Ordenar los elementos que se encuentran antes del pivote
+        quicksort(vector,pivote+1,final); // Ordenar los elementos que se encuentran despues del pivote
+    }
+}
 
 /*	Se conoce tambien como inserción con elementos decrecientes.
 	Propone que las comparaciones entre elementos se efectúen con saltos de mayor tamaño,
