@@ -16,6 +16,7 @@ void seleccionDirecta(int n,int *vector);
 void insercionBinaria(int n,int *vector);
 void shell(int n,int *vector);
 void quicksort(int *vector,int inicio,int final);
+void mezclaDirecta(int n,int *vector);
 
 // Función principal
 
@@ -38,6 +39,7 @@ int main(int argc, char *argv[]) {
 		cout<<"\tInsercion binaria...........................[08]"<<endl;
 		cout<<"\tMetodo de Shell.............................[09]"<<endl;
 		cout<<"\tQuicksort...................................[10]"<<endl;
+		cout<<"\tMezcla directa..............................[11]"<<endl;
 		cout<<"\tBUSQUEDA SECUENCIAL.........................[]"<<endl;
 		cout<<"\tSALIR.......................................[0]"<<endl;
 		cout<<"\n\tDigita tu eleccion: ";
@@ -132,6 +134,11 @@ int main(int argc, char *argv[]) {
 				quicksort(vec,0,n-1);
 				cout<<"\n\tMetodo de Quicksort terminado..."<<endl;
 			break;
+			case 11:
+				cout<<"\n\tOrdenando vector..."<<endl;
+			    mezclaDirecta(n,vec);
+				cout<<"\n\tMetodo de Quicksort terminado..."<<endl;
+			break;
 			case 0:
 				return 0;
 			break;
@@ -142,6 +149,40 @@ int main(int argc, char *argv[]) {
 }
 
 // Implementación de funciones
+
+/*  Consiste en la realización sucesiva de una partición y una fusión que produce
+	secuencias ordenadas de longitud cada vez mayor. Es proceso se repite hasta que
+	la longitud de la secuencia para la partición es (n+1)/2, donde n es el 
+	número de elementos del archivo original.*/
+void mezclaDirecta(int n,int *vector){
+	int *f1,*f2; // vectores auxiliares
+	int segmento; // tamaño del segmento
+	int posicion; // posicion del vector original
+	int posF1 = 0;
+	int posF2 = 0;
+	if(n%2==0){ // si el número de elementos del vector es par
+		f1 = new int[n/2];
+		f2 = new int[n/2];
+	}else{ // si es impar
+		f1 = new int[n/2];
+		f2 = new int[n/2-1];
+	}
+	for(segmento=1;segmento<=(n+1)/2;segmento*=2){
+		posicion = 0;
+		while(posicion<n){
+			for(int i=1;i<=segmento;i++){
+				f1[posF1] = vector[posicion];
+				posicion++;
+				posF1++;
+			}
+			for(int i=1;i<=segmento;i++){
+				f2[posF2] = vector[posicion];
+				posicion++;
+				posF2++;
+			}
+		}
+	}
+}
 
 /*	Es una mejora sustancial del método de intercambio directo.
 	Consiste en tomar un elemento x de una posición cualquiera del arreglo.
