@@ -164,11 +164,13 @@ void mezclaDirecta(int n,int *vector){
 		f1 = new int[n/2];
 		f2 = new int[n/2];
 	}else{ // si es impar
-		f1 = new int[n/2];
-		f2 = new int[n/2-1];
+		f1 = new int[n/2+1];
+		f2 = new int[n/2];
 	}
 	for(segmento=1;segmento<=(n+1)/2;segmento*=2){
 		posicion = 0;
+		posF1 = 0;
+ 		posF2 = 0;
 		while(posicion<n){
 			for(int i=1;i<=segmento;i++){
 				f1[posF1] = vector[posicion];
