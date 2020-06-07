@@ -17,6 +17,7 @@ void insercionBinaria(int n,int *vector);
 void shell(int n,int *vector);
 void quicksort(int *vector,int inicio,int final);
 void mezclaDirecta(int n,int *vector);
+void mezclar(int n1,int *vec1,int n2,int *vec2,int *vector);
 
 // Función principal
 
@@ -137,7 +138,7 @@ int main(int argc, char *argv[]) {
 			case 11:
 				cout<<"\n\tOrdenando vector..."<<endl;
 			    mezclaDirecta(n,vec);
-				cout<<"\n\tMetodo de Quicksort terminado..."<<endl;
+				cout<<"\n\tMetodo de mezcla directa terminado..."<<endl;
 			break;
 			case 0:
 				return 0;
@@ -155,34 +156,56 @@ int main(int argc, char *argv[]) {
 	la longitud de la secuencia para la partición es (n+1)/2, donde n es el 
 	número de elementos del archivo original.*/
 void mezclaDirecta(int n,int *vector){
-	int *f1,*f2; // vectores auxiliares
-	int segmento; // tamaño del segmento
-	int posicion; // posicion del vector original
-	int posF1 = 0;
-	int posF2 = 0;
-	if(n%2==0){ // si el número de elementos del vector es par
-		f1 = new int[n/2];
-		f2 = new int[n/2];
-	}else{ // si es impar
-		f1 = new int[n/2+1];
-		f2 = new int[n/2];
-	}
-	for(segmento=1;segmento<=(n+1)/2;segmento*=2){
-		posicion = 0;
-		posF1 = 0;
- 		posF2 = 0;
-		while(posicion<n){
-			for(int i=1;i<=segmento;i++){
-				f1[posF1] = vector[posicion];
-				posicion++;
-				posF1++;
-			}
-			for(int i=1;i<=segmento;i++){
-				f2[posF2] = vector[posicion];
-				posicion++;
-				posF2++;
-			}
+	int *v1,*v2; // vectores auxiliares
+	int n1,n2; // tamaño de los vectores auxiliares
+	int i,j; // contadores para recorrer los vectores
+	if(n>1){
+		if(n%2==0){
+			n1 = n2 = n/2;
+		}else{
+			n2 = n/2;
+			n1 = n2+1;
 		}
+		v1 = new int[n1];
+		v2 = new int[n2];
+		// separar el vector original en dos partes
+		for(i=0;i<n1;i++){
+			v1[i] = vector[i];
+		}
+		for(j=0;j<n2;i++,j++){
+			v2[j] = vector[i];
+		}
+		mezclaDirecta(n1,v1);
+		mezclaDirecta(n2,v2);
+		mezclar(n1,v1,n2,v2,vector);
+		
+		// liberar el espacio de los vectores auxiliares
+		delete v1;
+		delete v2;
+	}
+}
+
+void mezclar(int n1,int *vec1,int n2,int *vec2,int *vector){
+	int c1 = 0,c2 = 0,c3 = 0; // variables para recorrer los vectores
+	while(c1<n1&&c2<n2){
+		if(vec1[c1]<vec2[c2]){
+			vector[c3] = vec1[c1];
+			c1++;
+		}else{
+			vector[c3] = vec2[c2];
+			c2++;
+		}
+		c3++;
+	}
+	while(c1<n1){
+		vector[c3] = vec1[c1];
+		c1++;
+		c3++;
+	}
+	while(c2<n2){
+		vector[c3] = vec2[c2];
+		c2++;
+		c3++;
 	}
 }
 
