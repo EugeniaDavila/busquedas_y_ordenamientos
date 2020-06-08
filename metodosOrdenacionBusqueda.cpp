@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 		cout<<"\n\tBusquedas"<<endl;
 		cout<<"\tBusqueda secuencial.........................[12]"<<endl;
 		cout<<"\tBusqueda binaria............................[13]"<<endl;
-		cout<<"\n\tSalir.......................................[0]"<<endl;
+		cout<<"\n\tSalir.......................................[00]"<<endl;
 		cout<<"\n\tDigita tu eleccion: ";
 		cin>>op;
 		switch(op){
@@ -101,13 +101,13 @@ int main(int argc, char *argv[]) {
 				busquedaSecuencial(n,vec,x);
 			break;
 			case 13:
-				cout<<"Introduce el valor a buscar: ";
+				cout<<"\n\tIntroduce el valor a buscar: ";
 			    cin>>x;
 			    loc = busquedaBinaria(n,vec,x);
 			    if(loc>-1){
-			    	cout<<"El elemento esta en la posicion "<<loc<<endl;
+			    	cout<<"\n\tEl elemento esta en la posicion "<<loc+1<<endl;
 				}else{
-					cout<<"No se encontro el elemento"<<endl;
+					cout<<"\n\tNo se encontro el elemento"<<endl;
 				}
 			break;
 			case 0:
