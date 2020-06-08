@@ -19,6 +19,7 @@ void quicksort(int *vector,int inicio,int final);
 void mezclaDirecta(int n,int *vector);
 void mezclar(int n1,int *vec1,int n2,int *vec2,int *vector);
 void busquedaSecuencial(int n,int *vector,int buscado);
+int busquedaBinaria(int n,int *vector,int buscado);
 
 // Función principal
 
@@ -27,6 +28,7 @@ int main(int argc, char *argv[]) {
 	int n; // tamaño del vector
 	int op; // opción del menu seleccionada
 	int x; // valor a buscar en el vector
+	int loc; // posición de un elemento para la búsqueda binaria
 	while(true){
 		system("cls");
 		cout<<"\n\tMETODOS DE ORDENAMIENTO Y BUSQUEDA"<<endl<<endl;
@@ -68,32 +70,7 @@ int main(int argc, char *argv[]) {
 				cout<<"\n\tOrdenando vector..."<<endl;
 				baraja(n,vec);
 				cout<<"\n\tMetodo de insercion directa terminado..."<<endl;
-				break;
-			/*case 4:
-				inf=0;
-    			sup=9;
-    			ban=0;
-    			cout<<"Introduce el valor a buscar: ";
-				cin>>x;
-    			while(inf<=sup){
-    				ban++;
-    				med=(inf+sup)/2;
-    				if (vec[med]>x){
-			            sup=med-1;
-			        }
-			        else{
-			            if (vec[med]<x)
-			                inf=med+1;
-			            else{
-			                pos=med;
-			                inf=sup+1;
-			            }
-			        }
-			        if (pos==-1)
-			            cout<<"El valor no se encontro";
-    			}
-    			cout<<"Despues de "<<ban<<" intentos, el valor se encontro en ["<<pos<<"]="<<vec[pos]<<endl;
-			break;*/
+			break;
 			case 5:
 				shakersort(n,vec);
 			break;
@@ -123,6 +100,16 @@ int main(int argc, char *argv[]) {
 				cin>>x;
 				busquedaSecuencial(n,vec,x);
 			break;
+			case 13:
+				cout<<"Introduce el valor a buscar: ";
+			    cin>>x;
+			    loc = busquedaBinaria(n,vec,x);
+			    if(loc>-1){
+			    	cout<<"El elemento esta en la posicion "<<loc<<endl;
+				}else{
+					cout<<"No se encontro el elemento"<<endl;
+				}
+			break;
 			case 0:
 				return 0;
 			break;
@@ -134,10 +121,37 @@ int main(int argc, char *argv[]) {
 
 // Implementación de funciones
 
+/*	Consiste en dividir el intervalo de búsqueda en dos partes, comparando
+	el elemento buscado con el que ocupa la posición central en el arreglo. 
+	Si no son iguales, la mitad en la cual el valor no puede estar es eliminada
+	y la búsqueda continua en la mitad restante hasta que el valor se encuentre.
+	Funciona exclusivamente con arreglos ORDENADOS. */
+int busquedaBinaria(int n,int *vector,int buscado){
+	int inicio = 0;
+	int fin = n-1;
+	int medio;
+	while(inicio<fin){
+		medio = (inicio + fin)/2;
+		if(vector[medio]==buscado){
+			return medio;
+		}else{
+			if(buscado>vector[medio]){
+				inicio = medio + 1;
+			}else{
+				fin = medio - 1;
+			}
+		}
+	}
+	if(vector[inicio]==buscado){
+		return inicio;
+	}else{
+		return -1;
+	}
+}
+
 /*	Recorre el vector elemento a elemento buscando el valor 
 	proporcionado por el usuario. Si lo encuentra muestra la posición en la
-	que está
-*/
+	que está. */
 void busquedaSecuencial(int n,int *vector,int buscado){
 	int posicion=-1;
 	for(int i=0;i<n;i++){
