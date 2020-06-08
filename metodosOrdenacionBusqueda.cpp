@@ -18,6 +18,7 @@ void shell(int n,int *vector);
 void quicksort(int *vector,int inicio,int final);
 void mezclaDirecta(int n,int *vector);
 void mezclar(int n1,int *vec1,int n2,int *vec2,int *vector);
+void busquedaSecuencial(int n,int *vector,int buscado);
 
 // Función principal
 
@@ -25,7 +26,7 @@ int main(int argc, char *argv[]) {
 	int *vec; // vector a ordenar
 	int n; // tamaño del vector
 	int op; // opción del menu seleccionada
-	int tmp,men,ban,x,sup,inf,pos,med;
+	int x; // valor a buscar en el vector
 	while(true){
 		system("cls");
 		cout<<"\n\tMETODOS DE ORDENAMIENTO Y BUSQUEDA"<<endl<<endl;
@@ -41,8 +42,10 @@ int main(int argc, char *argv[]) {
 		cout<<"\tMetodo de Shell.............................[09]"<<endl;
 		cout<<"\tQuicksort...................................[10]"<<endl;
 		cout<<"\tMezcla directa..............................[11]"<<endl;
-		cout<<"\tBUSQUEDA SECUENCIAL.........................[]"<<endl;
-		cout<<"\tSALIR.......................................[0]"<<endl;
+		cout<<"\n\tBusquedas"<<endl;
+		cout<<"\tBusqueda secuencial.........................[12]"<<endl;
+		cout<<"\tBusqueda binaria............................[13]"<<endl;
+		cout<<"\n\tSalir.......................................[0]"<<endl;
 		cout<<"\n\tDigita tu eleccion: ";
 		cin>>op;
 		switch(op){
@@ -61,19 +64,7 @@ int main(int argc, char *argv[]) {
 			case 4:
 				ordenaBurbujaSenal(n,vec);
 			break;
-			case 6:/*
-				for(int i=0;i<n;i++){
-					men=vec[i];
-					tmp=i;
-					for(int j=i+1;j<n;j++){
-						if(vec[j]<men){
-							men=vec[j];
-							tmp=j;
-						}
-					}
-					vec[tmp]=vec[i];
-					vec[i]=men;
-				}*/
+			case 6:
 				cout<<"\n\tOrdenando vector..."<<endl;
 				baraja(n,vec);
 				cout<<"\n\tMetodo de insercion directa terminado..."<<endl;
@@ -105,19 +96,6 @@ int main(int argc, char *argv[]) {
 			break;*/
 			case 5:
 				shakersort(n,vec);
-				/*ban=-1;
-				cout<<"Introduce el valor a buscar: ";
-				cin>>x;
-				for(int i=0;i<n;i++)
-					if(vec[i]==x){
-						ban=i;
-						break;	
-					}
-				if(ban!=-1)
-					cout<<"El valor esta en la posicion ["<<ban<<"]= "<<vec[ban]<<endl;
-				else
-					cout<<"El valor no se encontro."<<endl;
-					*/
 			break;
 			case 7:
 				seleccionDirecta(n,vec);
@@ -140,6 +118,11 @@ int main(int argc, char *argv[]) {
 			    mezclaDirecta(n,vec);
 				cout<<"\n\tMetodo de mezcla directa terminado..."<<endl;
 			break;
+			case 12:
+				cout<<"\n\tIntroduce el valor a buscar: ";
+				cin>>x;
+				busquedaSecuencial(n,vec,x);
+			break;
 			case 0:
 				return 0;
 			break;
@@ -150,6 +133,25 @@ int main(int argc, char *argv[]) {
 }
 
 // Implementación de funciones
+
+/*	Recorre el vector elemento a elemento buscando el valor 
+	proporcionado por el usuario. Si lo encuentra muestra la posición en la
+	que está
+*/
+void busquedaSecuencial(int n,int *vector,int buscado){
+	int posicion=-1;
+	for(int i=0;i<n;i++){
+		if(vector[i]==buscado){
+			posicion=i;
+			break;	
+		}
+	}
+	if(posicion!=-1){
+		cout<<"\n\tEl valor esta en la posicion "<<posicion+1<<endl;
+	}else{
+		cout<<"\n\tEl valor no se encontro."<<endl;
+	}	
+}
 
 /*  Consiste en la realización sucesiva de una partición y una fusión que produce
 	secuencias ordenadas de longitud cada vez mayor. Es proceso se repite hasta que
